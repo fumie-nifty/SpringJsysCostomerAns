@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- EmployeeMapper.xml -->
+<!-- All Rights Reserved, Copyright(c) Fujitsu Learning Media Limited -->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jsysSpring.sales.mapper.EmployeeMapper">
+
+	<!-- 一件検索 -->
+	<select id="findEmployee" resultType="jsysSpring.sales.entity.Employee">
+		SELECT
+			employeeno, employeename, password
+		FROM
+			employee
+		WHERE
+		employeeno = #{employeeNo};
+	</select>
+
+</mapper>

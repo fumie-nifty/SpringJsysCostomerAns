@@ -1,0 +1,21 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+<title>メインメニュー画面</title>
+</head>
+<body>
+	<!-- 見出し -->
+	<header  th:insert="header::header"></header>
+	<!-- メインコンテンツ -->
+	<main>
+		<h2>メインメニュー</h2>
+		<form class="menu">
+			<p><button th:formaction="@{/customerMenu}">得 意 先 管 理</button></p>
+			<p><button th:formaction="@{/aggregateMenu}">得 意 先 集 計</button></p>
+		</form>
+	</main>
+	<footer th:insert="footer::footer"></footer>
+</body>
+</html>

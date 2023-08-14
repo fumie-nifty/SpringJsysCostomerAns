@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+<title>商品別受注集計画面</title>
+</head>
+<body>
+	<!-- 見出し -->
+	<header  th:insert="header::header"></header>
+	<!-- メインコンテンツ -->
+	<main>
+		<p class="gotoMenu"><a th:href="@{/aggregateMenu}">得意先別集計メニューへ戻る</a></p>
+		<h2>商品別受注集計</h2>
+		<form 	th:object="${aggregateCustomerForm}" method="post" action="#">
+			<table>
+				<tr>
+					<td>得意先コード</td>
+					<td width="150">
+						<input type="text" th:field="*{customerCode}" maxLength="6" size="10">
+					</td>
+					<td>得意先名</td>
+					<td width="200" th:text="${customerName}">
+							customerName
+					</td>
+				</tr>
+				<tr>
+					<td colspan="4" align="center">
+						<button type="submit" th:formaction="@{/aggregateByItem}">集 計</button>
+						<button type="submit" th:formaction="@{/goOrderTotalByItem}">クリア</button>
+					</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td colspan="2">
+							<div 	th:if="${#fields.hasErrors('customerCode')}"
+														th:errors="*{customerCode}" class="errorMessage" style="text-align: left;">
+									エラーメッセージ
+							</div>
+					</td>
+				</tr>
+			</table>
+		</form>
+		<form  method="post" action="#" th:if="${orderTotalByItemList!=null}">
+			<table border="1" style="margin: 0 auto">
+				<tr>
+					<th width="100">商品コード</th>
+					<th width="150">商品名</th>
+					<th width="80">合計数量</th>
+					<th width="80">単価</th>
+					<th width="150">商品別合計金額</th>
+				</tr>
+				<th:block th:object="${orderTotalByItem}" th:each="orderTotalByItem : ${orderTotalByItemList}">
+				<tr>
+					<td th:text="*{itemCode}">KA0003</td>
+					<td th:text="*{itemName}">Cストア</td>
+					<td  th:text="${#numbers.formatInteger(orderTotalByItem.totalAmount, 1, 'COMMA')}" nowrap align="right">142,400</td>
+					<td  th:text="${#numbers.formatInteger(orderTotalByItem.price, 1, 'COMMA')}" nowrap align="right">142,400</td>
+					<td  th:text="${#numbers.formatInteger(orderTotalByItem.totalPrice, 1, 'COMMA')}" nowrap align="right">142,400</td>
+				</tr>
+				</th:block>
+				<tr>
+					<th colspan="4">総計</th>
+					<td th:text="${#numbers.formatInteger(aggregateTotal, 1, 'COMMA')}" align="right" width="100">
+					</td>
+				</tr>
+			</table>
+		</form>
+		<!-- エラーメッセージ -->
+		<div class="errorMessage" th:text="${message}"  style="text-align: center; color: red">
+			エラーメッセージ
+		</div>
+		<p class="gotoMenu"><a th:href="@{/mainMenu}">メインメニューへ戻る</a></p>
+	</main>
+	<footer th:insert="footer::footer"></footer>
+</body>
+</html>

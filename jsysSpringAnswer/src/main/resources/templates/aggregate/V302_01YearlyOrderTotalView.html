@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+<title>年次受注集計画面</title>
+</head>
+<body>
+	<!-- 見出し -->
+	<header  th:insert="header::header"></header>
+	<!-- メインコンテンツ -->
+	<main>
+		<p class="gotoMenu"><a th:href="@{/aggregateMenu}">得意先別集計メニューへ戻る</a></p>
+		<h2>年次受注集計</h2>
+		<form 	th:object="${aggregateYearForm}" method="post" action="#">
+			<table>
+				<tr>
+					<td>集計する年</td>
+					<td nowrap width="180">
+						<input type="text" th:field="*{year}" maxLength="4" size="5" > 年</td>
+					<td>
+						<button type="submit" th:formaction="@{/aggregateYearly}">集 計</button>
+						<button type="submit" th:formaction="@{/goYearlyOrderTotal}">クリア</button>
+					</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td colspan="2">
+							<div 	th:if="${#fields.hasErrors('year')}"
+														th:errors="*{year}" class="errorMessage" style="text-align: left;">
+									エラーメッセージ
+							</div>
+					</td>
+				</tr>
+			</table>
+		</form>
+		<form  method="post" action="#"  th:if="${orderTotalByCustomerList!=null}">
+			<table border="1">
+				<tr>
+					<th width="100">得意先コード</th>
+					<th width="200">得意先名</th>
+					<th width="200">得意先別合計金額</th>
+				</tr>
+				<th:block th:object="${orderTotalByCustomer}" th:each="orderTotalByCustomer : ${orderTotalByCustomerList}">
+				<tr>
+					<td th:text="*{customerCode}">KA0003</td>
+					<td th:text="*{customerName}">Cストア</td>
+					<td  th:text="${#numbers.formatInteger(orderTotalByCustomer.totalPrice, 1, 'COMMA')}" nowrap align="right">142,400</td>
+				</tr>
+				</th:block>
+				<tr>
+					<th colspan="2">総計</th>
+					<td th:text="${#numbers.formatInteger(aggregateTotal, 1, 'COMMA')}" align="right" width="100">
+					</td>
+				</tr>
+			</table>
+		</form>
+		<!-- エラーメッセージ -->
+		<div class="errorMessage" th:text="${message}"  style="text-align: center; color: red">
+			エラーメッセージ
+		</div>
+		<p class="gotoMenu"><a th:href="@{/mainMenu}">メインメニューへ戻る</a></p>
+	</main>
+	<footer th:insert="footer::footer"></footer>
+</body>
+</html>

@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+<title>得意先登録画面</title>
+</head>
+<body>
+	<!-- 見出し -->
+	<header  th:insert="header::header"></header>
+	<!-- メインコンテンツ -->
+	<main>
+		<p class="gotoMenu"><a th:href="@{/customerMenu}">得意先管理メニューへ戻る</a></p>
+		<h2>得意先登録</h2>
+		<form 	th:object="${registCustomerForm}" method="post"
+					action="#" th:action="@{/registCustomer}">
+			<table>
+				<tr>
+					<td width="100">得意先名</td>
+					<td width="300">
+						<input type="text" th:field="*{customerName}" maxLength="32" size="60">
+						<div th:if="${#fields.hasErrors('customerName')}" class="errorMessage" style="text-align: left;"
+								th:errors="*{customerName}">validation massage</div>
+					</td>
+				</tr>
+				<tr>
+					<td>電話番号</td>
+					<td>
+						<input type="text" th:field="*{customerTelno}" maxLength="13" size="16">
+						<div th:if="${#fields.hasErrors('customerTelno')}" class="errorMessage" style="text-align: left;"
+								th:errors="*{customerTelno}">validation massage</div>
+					</td>
+				</tr>
+				<tr>
+					<td>郵便番号</td>
+					<td>
+						<input type="text" th:field="*{customerPostalcode}" maxLength="8" size="10">
+						<div th:if="${#fields.hasErrors('customerPostalcode')}" class="errorMessage" style="text-align: left;"
+								th:errors="*{customerPostalcode}">validation massage</div>
+					</td>
+				</tr>
+				<tr>
+					<td>住所</td>
+					<td>
+						<input type="text" th:field="*{customerAddress}" maxLength="40" size="80">
+						<div th:if="${#fields.hasErrors('customerAddress')}" class="errorMessage" style="text-align: left;"
+								th:errors="*{customerAddress}">validation massage</div>
+					</td>
+				</tr>
+				<tr>
+					<td>割引率</td>
+					<td>
+						<input type="text" th:field="*{discountRate}" maxLength="2" size="5"> %
+						<div th:if="${#fields.hasErrors('discountRate')}" class="errorMessage" style="text-align: left;"
+								th:errors="*{discountRate}">validation massage</div>
+					</td>
+				</tr>
+			</table>
+			<br>
+			<div style="text-align:center">
+				<button type="submit" name="buttonId" value="V202_01_01" style="width: 100px">登　　録</button>
+			</div>
+		</form>
+		<!-- エラーメッセージ -->
+		<div class="errorMessage" th:text="${message}"  style="text-align: center; color: red">
+			エラーメッセージ
+		</div>
+		<p class="gotoMenu"><a th:href="@{/mainMenu}">メインメニューへ戻る</a></p>
+	</main>
+	<footer th:insert="footer::footer"></footer>
+</body>
+</html>

@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+<title>得意先削除画面</title>
+</head>
+<body>
+	<!-- 見出し -->
+	<header  th:insert="header::header"></header>
+	<!-- メインコンテンツ -->
+	<main>
+		<p class="gotoMenu"><a th:href="@{/customerMenu}">得意先管理メニューへ戻る</a></p>
+		<h2>得意先削除</h2>
+		<form 	th:object="${searchCustomerForm}" method="post"
+					action="#" th:action="@{/deleteSearchCustomer}">
+			<table>
+				<tr>
+					<td>得意先コード</td>
+					<td>
+						<input type="text" th:field="*{customerCode}"  maxLength="6" size="10">
+					</td>
+					<td>
+						<button type="submit" style="width: 100px" >検索</button>
+					</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td colspan="2">
+						<div 	th:if="${#fields.hasErrors('customerCode')}"
+									th:errors="*{customerCode}" class="errorMessage" style="text-align: left;">validation massage</div>
+					</td>
+				</tr>
+			</table>
+		</form>
+		<form  method="post" action="#" th:if="${customer}">
+			<br>
+			<table border="1">
+				<tr>
+					<td width="100">得意先コード</td>
+					<td width="300" th:text="${customer.customerName}">
+
+					</td>
+				</tr>
+				<tr>
+					<td>得意先名</td>
+					<td th:text="${customer.customerName}">customerName</td>
+				</tr>
+				<tr>
+					<td>電話番号</td>
+					<td th:text="${customer.customerTelno}">customerTelno</td>
+					</tr>
+				<tr>
+					<td>郵便番号</td>
+					<td th:text="${customer.customerPostalcode}">customerPostalcode</td>
+				</tr>
+				<tr>
+					<td>住所</td>
+					<td th:text="${customer.customerAddress}">customerAddress</td>
+				</tr>
+				<tr>
+					<td>割引率</td>
+					<td><span th:text="${customer.discountRate}">discountRate</span>%</td>
+				</tr>
+			</table>
+			<br>
+			<div style="text-align:center">
+				<button type="submit" th:formaction="@{/deleteCustomer}">削 除</button>
+				<button type="submit" th:formaction="@{/goDeleteCustomer}">ク リ ア</button>
+			</div>
+		</form>
+		<!-- エラーメッセージ -->
+		<div class="errorMessage" th:text="${message}"  style="text-align: center; color: red">
+			エラーメッセージ
+		</div>
+		<p class="gotoMenu"><a th:href="@{/mainMenu}">メインメニューへ戻る</a></p>
+	</main>
+	<footer th:insert="footer::footer"></footer>
+</body>
+</html>

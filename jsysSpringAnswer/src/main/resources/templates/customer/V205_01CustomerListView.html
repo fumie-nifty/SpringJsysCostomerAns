@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+<title>得意先一覧画面</title>
+</head>
+<body>
+	<!-- 見出し -->
+	<header  th:insert="header::header"></header>
+	<!-- メインコンテンツ -->
+	<main>
+		<p class="gotoMenu"><a th:href="@{/customerMenu}">得意先管理メニューへ戻る</a></p>
+		<h2>得意先一覧</h2>
+		<form method="post" action="#">
+			<table border="1" style="margin: 0 auto" th:if="${customerList}">
+				<tr>
+					<th width="100">得意先コード</th>
+					<th width="200">得意先名</th>
+					<th width="100">電話番号</th>
+					<th width="100">郵便番号</th>
+					<th width="300">住所</th>
+					<th width="80">割引率</th>
+				</tr>
+				<th:block th:object="${customer}" th:each="customer : ${customerList}">
+					<tr>
+						<td th:text="*{customerCode}">KA0001</td>
+						<td th:text="*{customerName}">Aストア</td>
+						<td th:text="*{customerTelno}">045-128-3581</td>
+						<td th:text="*{customerPostalcode}">220-0001</td>
+						<td th:text="*{customerAddress}">横浜市西区北幸２－１</td>
+						<td th:text="*{discountRate}">0%</td>
+					</tr>
+				</th:block>
+			</table>
+		</form>
+		<!-- エラーメッセージ -->
+		<div class="errorMessage" th:text="${message}"  style="text-align: center; color: red">
+			エラーメッセージ
+		</div>
+		<p class="gotoMenu"><a th:href="@{/mainMenu}">メインメニューへ戻る</a></p>
+	</main>
+	<footer th:insert="footer::footer"></footer>
+</body>
+</html>

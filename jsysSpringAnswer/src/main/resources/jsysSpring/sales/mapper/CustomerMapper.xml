@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- EmployeeMapper.xml -->
+<!-- All Rights Reserved, Copyright(c) Fujitsu Learning Media Limited -->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jsysSpring.sales.mapper.CustomerMapper">
+
+	<!-- 得意先を1件検索する -->
+	<select id="findCustomer" resultType="jsysSpring.sales.entity.Customer">
+		SELECT
+			customercode, customername, customertelno,
+			customerpostalcode, customeraddress, discountrate
+		FROM
+			customer
+		WHERE
+			customercode = #{customerCode} AND deleteflag = false;
+	</select>
+
+	<!--得意先を追加する -->
+	<insert id="insertCustomer">
+		INSERT INTO
+			customer
+		VALUES(
+			#{customerCode},
+			#{customerName},
+			#{customerTelno},
+			#{customerPostalcode},
+			#{customerAddress},
+			#{discountRate},
+			false);
+	</insert>
+
+	<!-- 削除フラグを更新する -->
+	<update id="updateDeleteFlag">
+		UPDATE
+			customer
+		SET
+			deleteflag = true
+		WHERE
+			customercode = #{customerCode}  AND deleteflag = false;
+	</update>
+
+	<!-- 得意先を更新する -->
+	<update id="updateCustomer">
+		UPDATE
+			customer
+		SET
+			customername=#{customerName},
+			customertelno=#{customerTelno},
+			customerpostalcode=#{customerPostalcode},
+			customeraddress=#{customerAddress},
+			discountrate=#{discountRate}
+		WHERE
+			customercode = #{customerCode}  AND deleteflag = false;
+	</update>
+
+	<!-- 得意先を全件検索する -->
+	<select id="findAllCustomer" resultType="jsysSpring.sales.entity.Customer">
+		SELECT
+			customercode, customername, customertelno,
+			customerpostalcode, customeraddress, discountrate
+		FROM
+			customer
+		WHERE
+			deleteflag = false;
+	</select>
+
+	<!-- 削除済みフラグを無視して、得意先を1件検索する -->
+	<select id="findCustomerIgnoreDeleteFlag" resultType="jsysSpring.sales.entity.Customer">
+		SELECT
+			customercode, customername, customertelno,
+			customerpostalcode, customeraddress, discountrate
+		FROM
+			customer
+		WHERE
+			customercode = #{customerCode};
+	</select>
+</mapper>

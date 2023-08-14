@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+<title>システムエラー画面</title>
+</head>
+<body>
+	<!-- 見出し -->
+	<header>
+		<h1>販売支援システム</h1>
+	</header>
+	<!-- メインコンテンツ -->
+	<main>
+			<h2>システムエラー</h2>
+			<!-- エラーメッセージ -->
+			<div class="errorMessage">
+				システムエラーが発生しました。システム管理者に連絡してください。
+			</div>
+			<p></p>
+			<!-- フォーム -->
+			<form action="#" th:action="@{/}" method="get">
+			<div style="text-align:center">
+				<button type="submit" style="width: 200px">ログイン画面へ</button>
+			</div>
+			</form>
+	</main>
+	<footer th:insert="footer::footer"></footer>
+</body>
+</html>

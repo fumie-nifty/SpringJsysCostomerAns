@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- EmployeeMapper.xml -->
+<!-- All Rights Reserved, Copyright(c) Fujitsu Learning Media Limited -->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jsysSpring.sales.mapper.OrderMapper">
+
+	<!-- 得意先別受注集計リスト -->
+	<select id="createOrderTotalListByCustomer" resultType="jsysSpring.sales.entity.OrderTotalByCustomer">
+		SELECT
+			orders.customercode,
+			customer.customername,
+			SUM(orders.totalprice) AS totalprice
+		FROM
+			orders, customer
+		WHERE
+			orders.customercode = customer.customercode
+			AND
+			orders.orderdate BETWEEN #{startDate} AND #{endDate}
+		GROUP BY
+			orders.customercode, customer.customername
+		ORDER BY
+			orders.customercode;
+	</select>
+
+	<!-- 商品別受注集計リスト -->
+	<select id="createOrderTotalListByItem" resultType="jsysSpring.sales.entity.OrderTotalByItem">
+		SELECT
+			orderdetails.itemcode,
+			item.itemname,
+			SUM(orderdetails.ordernum) AS totalAmount,
+			item.price,
+			SUM(orderdetails.orderprice) AS totalprice
+		FROM
+			orders,orderdetails,item
+		WHERE
+			orders.orderno = orderdetails.orderno
+			AND
+			orderdetails.itemcode = item.itemcode
+		GROUP BY
+			orders.customercode, orderdetails.itemcode, item.itemname, item.price
+		HAVING
+			orders.customercode= #{custCode}
+		ORDER BY
+			orderdetails.itemcode;
+	</select>
+
+</mapper>

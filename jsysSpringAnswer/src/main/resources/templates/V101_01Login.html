@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+<title>ログイン画面</title>
+</head>
+<body>
+	<!-- 見出し -->
+	<header><h1>販売支援システム</h1></header>
+	<!-- メインコンテンツ -->
+	<main>
+		<h2>ログイン</h2>
+		<form 	th:object="${loginForm}" method="post"
+					action="#" th:action="@{/login}">
+			<table style="margin: 0 auto">
+				<tr>
+					<td>従業員番号</td>
+					<td>
+						<input type="text" maxLength="6" th:field="*{employeeNo}" size="14" >
+						<div th:if="${#fields.hasErrors('employeeNo')}" class="errorMessage" style="text-align: left;"
+								th:errors="*{employeeNo}">validation massage</div>
+					</td>
+				</tr>
+				<tr>
+					<td>パスワード</td>
+					<td>
+						<input type="password" th:field="*{password}" maxLength="6" size="14">
+						<div 	th:if="${#fields.hasErrors('password')}" class="errorMessage" style="text-align: left;"
+								th:errors="*{password}">validation massage</div>
+					</td>
+				</tr>
+			</table>
+			<div style="text-align: center">
+				<button type="submit">ログイン</button>
+			</div>
+		</form>
+		<!-- エラーメッセージ -->
+		<div class="errorMessage" th:text="${message}"  style="text-align: center; color: red">
+			エラーメッセージ
+		</div>
+	</main>
+	<footer th:insert="footer::footer"></footer>
+</body>
+</html>

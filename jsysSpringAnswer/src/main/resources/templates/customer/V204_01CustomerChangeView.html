@@ -1,0 +1,118 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+<title>得意先変更画面</title>
+</head>
+<body>
+	<!-- 見出し -->
+	<header  th:insert="header::header"></header>
+	<!-- メインコンテンツ -->
+	<main>
+		<p class="gotoMenu"><a th:href="@{/customerMenu}">得意先管理メニューへ戻る</a></p>
+		<h2>得意先変更</h2>
+<form 	th:object="${searchCustomerForm}" method="post"
+					action="#" th:action="@{/updateSearchCustomer}">
+			<table>
+				<tr>
+					<td>得意先コード</td>
+					<td>
+						<input type="text" th:field="*{customerCode}"  maxLength="6" size="10">
+					</td>
+					<td>
+						<button type="submit" style="width: 100px" >検索</button>
+					</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td colspan="2">
+						<div 	th:if="${#fields.hasErrors('customerCode')}"
+									th:errors="*{customerCode}" class="errorMessage" style="text-align: left;">validation massage</div>
+					</td>
+				</tr>
+			</table>
+		</form>
+		<form  	method="post" action="#" th:if="${updateCustomerForm.customerCode}"
+					th:object="${updateCustomerForm}"
+					th:action="@{/updateSearchCustomer}">
+			<br>
+			<input type="hidden" th:field="*{customerCode}"
+									th:value="*{customerCode}">
+			<table border="1" style="margin: 0 auto">
+				<tr>
+					<td width="100">得意先コード</td>
+					<td width="300" th:text="*{customerCode}">customerCode</td>
+				</tr>
+				<tr>
+					<td>得意先名</td>
+					<td>
+						<input 	type="text"
+									th:field="*{customerName}"
+									th:value="*{customerName}"
+									maxLength="32" size="60">
+						<div th:if="${#fields.hasErrors('customerName')}" class="errorMessage" style="text-align: left;"
+								th:errors="*{customerName}">validation massage</div>
+					</td>
+				</tr>
+				<tr>
+					<td>電話番号</td>
+					<td>
+						<input 	type="text"
+									th:field="*{customerTelno}"
+									th:value="*{customerTelno}"
+									maxLength="13" size="16">
+						<div th:if="${#fields.hasErrors('customerTelno')}" class="errorMessage" style="text-align: left;"
+								th:errors="*{customerTelno}">validation massage</div>
+					</td>
+				</tr>
+				<tr>
+					<td>郵便番号</td>
+					<td>
+						<input 	type="text"
+									th:field="*{customerPostalcode}"
+									th:value="*{customerPostalcode}"
+									maxLength="8" size="10">
+						<div th:if="${#fields.hasErrors('customerPostalcode')}" class="errorMessage" style="text-align: left;"
+								th:errors="*{customerPostalcode}">validation massage</div>
+					</td>
+				</tr>
+				<tr>
+					<td>住所</td>
+					<td>
+						<input 	type="text"
+									th:field="*{customerAddress}"
+									th:value="*{customerAddress}"
+									maxLength="40" size="80">
+						<div th:if="${#fields.hasErrors('customerAddress')}" class="errorMessage" style="text-align: left;"
+								th:errors="*{customerAddress}">validation massage</div>
+					</td>
+				</tr>
+				<tr>
+					<td>割引率</td>
+					<td>
+						<input 	type="text"
+									th:field="*{discountRate}"
+									th:value="*{discountRate}"
+									maxLength="2" size="10">
+						 %
+						 <div th:if="${#fields.hasErrors('discountRate')}" class="errorMessage" style="text-align: left;"
+								th:errors="*{discountRate}">validation massage</div>
+					</td>
+				</tr>
+			</table>
+			<br>
+			<div style="text-align: center">
+				<button type="submit" th:formaction="@{/updateCustomer}">変更</button>
+				<button type="submit" th:formaction="@{/goUpdateCustomer}">ク リ ア</button>
+			</div>
+		</form>
+		<!-- エラーメッセージ -->
+		<div class="errorMessage" th:text="${message}"  style="text-align: center; color: red">
+			エラーメッセージ
+		</div>
+		<p class="gotoMenu"><a th:href="@{/mainMenu}">メインメニューへ戻る</a></p>
+	</main>
+	<footer th:insert="footer::footer"></footer>
+</body>
+</html>

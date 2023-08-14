@@ -1,0 +1,13 @@
+<!-- All Rights Reserved, Copyright(c) Fujitsu Learning Media Limited -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<body>
+	<div th:fragment="header">
+		<h1>販売支援システム</h1>
+		<form class="logoutBtn" method="get">
+			<span th:text="${authEmployee.employeeName}">employeeNo</span>
+			<button   th:formaction="@{/logout}" style="width:80px">ログアウト</button>
+		</form>
+	</div>
+</body>
+</html>

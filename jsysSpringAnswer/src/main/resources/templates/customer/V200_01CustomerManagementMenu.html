@@ -1,0 +1,25 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+<title>得意先管理メニュー画面</title>
+</head>
+<body>
+	<!-- 見出し -->
+	<header  th:insert="header::header"></header>
+	<!-- メインコンテンツ -->
+	<main>
+		<h2>得意先管理メニュー</h2>
+		<form class="menu">
+			<p><button th:formaction="@{/goSearchCustomer}">得 意 先 検 索</button></p>
+			<p><button th:formaction="@{/goRegistCustomer}">得 意 先 登 録</button></p>
+			<p><button th:formaction="@{/goDeleteCustomer}">得 意 先 削 除</button></p>
+			<p><button th:formaction="@{/goUpdateCustomer}">得 意 先 変 更</button></p>
+			<p><button th:formaction="@{/searchCustomerList}">得 意 先 一 覧</button></p>
+		</form>
+		<p class="gotoMenu"><a th:href="@{/mainMenu}">メインメニューへ戻る</a></p>
+	</main>
+	<footer th:insert="footer::footer"></footer>
+</body>
+</html>
